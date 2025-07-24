@@ -42,6 +42,19 @@ app.get('/health', (req, res) => {
     dbStatus: mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected'
   });
 });
+
+// frontend build files
+// app.use(express.static('../my-app/build'));
+
+// Error Handling Middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({
+    error: 'Internal Server Error',
+    message: err.message || 'Something went wrong'
+  });
+});
+
 // 404 Not Found Handler
 app.use((req, res, next) => {
   res.status(404).json({
