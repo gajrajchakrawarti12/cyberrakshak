@@ -44,7 +44,7 @@ app.get('/health', (req, res) => {
 });
 
 // frontend build files
-// app.use(express.static('../my-app/build'));
+app.use(express.static('../my-app/build'));
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {
