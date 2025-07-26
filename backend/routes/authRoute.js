@@ -28,6 +28,7 @@ router.post(
   [
     body("username").notEmpty().isAlphanumeric(),
     body("password").isLength({ min: 6 }),
+    body("email").isEmail(),
     body("fullName").notEmpty(),
   ],
   async (req, res) => {
@@ -36,7 +37,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
 
     try {
-      const { username, password, fullName, role } = req.body;
+      const { username, password, fullName, email } = req.body;
       const existingUser = await User.findOne({ username });
       if (existingUser)
         return res.status(400).json({ message: "Username is already taken" });
@@ -46,6 +47,7 @@ router.post(
         username,
         password: hashedPassword,
         fullName,
+        email,
       });
       await user.save();
 

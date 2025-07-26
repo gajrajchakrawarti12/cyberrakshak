@@ -26,12 +26,45 @@ const userSchema = new mongoose.Schema(
       lowercase: true,
       required: false,
     },
+    emailVerified: {
+      type: Boolean,
+      default: false,
+    },
     phone: {
       type: String,
       unique: true,
       sparse: true, // ✅ allows multiple nulls
       trim: true,
       required: false,
+    },
+    phoneVerified: {
+      type: Boolean,
+      default: false,
+    },
+    is_active: {
+      type: Boolean,
+      default: true,
+    },
+    last_notified: Date,
+    notify_email: {
+      type: Boolean,
+      default: false,
+    },
+    notify_sms: {
+      type: Boolean,
+      default: false,
+    },
+    notify_high_risk: {
+      type: Boolean,
+      default: false,
+    },
+    notify_medium_risk: {
+      type: Boolean,
+      default: false,
+    },
+    notify_low_risk: {
+      type: Boolean,
+      default: false,
     },
   },
   { timestamps: true }

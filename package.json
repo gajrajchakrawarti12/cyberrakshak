@@ -1,0 +1,8 @@
+{
+  "name": "Cyber Rakshak",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "cd my-app && npm run build &&  cd ../backend && nodemon server.js",
+    "start": "cd my-app && npm run build && cd ../backend && node server.js"
+  }
+}
