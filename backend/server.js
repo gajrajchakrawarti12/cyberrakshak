@@ -52,7 +52,7 @@ try {
 } catch (err) {
   console.error("Error in videoRoute.js", err);
 }
-try{
+try {
   const { default: reportScamRouter } = await import('./routes/reportScamRoute.js');
   app.use('/api/report-scam', reportScamRouter);
 } catch (err) {
@@ -76,17 +76,6 @@ app.get('/health', (req, res) => {
 // Serve uploaded files
 app.use('/files', express.static(path.join(__dirname, 'files')));
 
-// ✅ Serve frontend build
-app.use(express.static(path.join(__dirname, '../my-app/build')));
-
-// ✅ Catch-all for React Router (non-API, non-files)
-app.use((req, res, next) => {
-  if (req.originalUrl.startsWith('/api') || req.originalUrl.startsWith('/files')) {
-    return next();
-  }
-  res.sendFile(path.join(__dirname, '../my-app/build', 'index.html'));
-});
-
 // Error Handling Middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
@@ -96,9 +85,17 @@ app.use((err, req, res, next) => {
   });
 });
 
+//react static files
+app.use(express.static(path.join(__dirname, '../my-app/build')));
+// app.use((req, res) => {
+//   res.status(404).json({
+//     error: 'Not Found',
+//     message: 'The requested resource could not be found'
+//   });
+// });
 // Start server
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`✅ Server running on port ${PORT}`);
   console.log(`✅ API is available at http://localhost:${PORT}/api`);
 });
